@@ -1,3 +1,7 @@
+# These are large data files which exceed the github limits
+fct_covers_table_pipesep.txt
+fct_covers_table.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
