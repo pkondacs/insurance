@@ -119,3 +119,16 @@ SELECT
 FROM pol
 WHERE pol.row_number = 1 and policy_status <> 'Closed'
 GROUP BY 1
+
+
+select a1.policy_id, a1.table, a2.table
+from
+    (SELECT distinct policy_id, 'a1' as table
+    FROM fct_policies_table
+    where policy_id in ('100000041244', '100000041251', '100000041258')) as a1
+left join
+    (SELECT policy_id, 'a2' as table
+    FROM fct_policies_table
+    where policy_id in ('100000041244', '100000041272', '100000041258')) as a2
+on a1.policy_id = a2.policy_id
+
