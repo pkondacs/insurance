@@ -1,11 +1,16 @@
-# %pip install pandas sqlalchemy
-import re
-import pandas as pd
+
+import os, re, pandas as pd
 
 # Create a loading class with different types of methods for loading
 class Loading:
     def __init__(self, subfolder):
         self.subfolder = subfolder
+        self.data_directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), subfolder)
+    
+    def printdir(self):
+        file_name = 'fct_covers_table_small.csv'
+        csv_file_path = os.path.join(self.data_directory, file_name)
+        print(csv_file_path)
 
     def csv_parse_custom(self, file_path):
         data = []
@@ -19,10 +24,14 @@ class Loading:
         return pd.DataFrame(data, columns=headers)
 
     def load_file(self, file_name, method):
+        # Construct the file path using the subfolder parameter
+        csv_file_path = os.path.join(self.data_directory, file_name)
+
         if method == 'read_csv':
-            return pd.read_csv(f'{self.subfolder}/{file_name}')
+            # return pd.read_csv(f'{self.subfolder}/{file_name}')
+            return pd.read_csv(csv_file_path)
         elif method == 'csv_parse_custom':
-            return self.csv_parse_custom(f'{self.subfolder}/{file_name}')
+            return self.csv_parse_custom(csv_file_path)
         else:
             raise ValueError("Unknown method specified for loading file.")
 
